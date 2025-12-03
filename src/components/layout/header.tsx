@@ -9,6 +9,9 @@ const HeaderWrapper = styled.header`
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 
   a {
     margin: 0;

@@ -17,14 +17,19 @@ const IconWrapper = styled.div`
 interface FilterProps {
   query: string;
   onSearch: (value: string) => void;
+  placeholder?: string;
 }
 
-export default function SearchField({ query, onSearch }: FilterProps) {
+export default function SearchField({
+  query,
+  onSearch,
+  placeholder,
+}: FilterProps) {
   return (
     <SearchWrapper>
       <Input
         type="text"
-        placeholder="Search..."
+        placeholder={placeholder ?? "Search..."}
         value={query}
         onChange={(e) => onSearch(e.target.value)}
       />

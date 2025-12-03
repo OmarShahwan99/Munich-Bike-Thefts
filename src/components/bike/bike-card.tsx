@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import type { BikeCase } from "../../types/bike";
 import { Link } from "react-router-dom";
+import { fmtDate } from "../../lib/helpers";
 
 const slideUpFade = keyframes`
   from {
@@ -73,13 +74,7 @@ const Text = styled.div<{ small?: boolean; weight?: number }>`
   font-weight: ${(p) => (p.weight ? p.weight : 400)};
 `;
 
-function fmtDate(ts: number | null) {
-  if (!ts) return "Unknown";
-  const d = new Date(ts * 1000);
-  return d.toLocaleDateString();
-}
-
-export default function TheftCard({ bike }: { bike: BikeCase }) {
+export default function BikeCard({ bike }: { bike: BikeCase }) {
   return (
     <Card>
       <ImgWrapper>

@@ -1,6 +1,6 @@
 import { SkeletonBlock, SkeletonWrapper } from "../../ui/skeleton";
 
-export default function TheftCardSkeleton() {
+export default function BikeCardSkeleton() {
   return (
     <SkeletonWrapper>
       <SkeletonBlock width="240px" height="220px" radius="10px" />

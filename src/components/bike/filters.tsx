@@ -36,7 +36,11 @@ export default function Filters({
 
   return (
     <Row>
-      <SearchField query={query} onSearch={handleSearch} />
+      <SearchField
+        query={query}
+        onSearch={handleSearch}
+        placeholder="Search By Title"
+      />
       <label>
         From
         <Input

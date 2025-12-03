@@ -1,12 +1,12 @@
 import Space from "../../ui/space";
-import TheftCardSkeleton from "./theft-skeleton-card";
+import BikeCardSkeleton from "./bike-card-skeleton";
 
 const TheftSkeletonList = () => {
   return (
     <Space size={16}>
-      <TheftCardSkeleton />
-      <TheftCardSkeleton />
-      <TheftCardSkeleton />
+      <BikeCardSkeleton />
+      <BikeCardSkeleton />
+      <BikeCardSkeleton />
     </Space>
   );
 };

@@ -1,9 +1,9 @@
 import type { BikeCase } from "../../types/bike";
-import TheftCard from "./theft-card";
+import TheftCard from "./bike-card";
 import Space from "../ui/space";
-import TheftSkeletonList from "./skeleton/theft-skeleton-list";
+import TheftSkeletonList from "./skeleton/bike-list-skeleton";
 
-export default function TheftList({
+export default function BikeList({
   bikes,
   loading,
   error,

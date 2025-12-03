@@ -6,6 +6,16 @@ export interface BikeCase {
   date_reported: string | null;
   stolen_location: string | null;
   large_img?: string | null;
+  frame_colors: string[];
+  public_images: { id: number; large: string; name: string }[];
+  stolen: boolean;
+  manufacturer_name: string;
+  frame_model: string;
+  year: string;
+  serial: string | null;
+  type_of_cycle: string;
+  propulsion_type_slug: string;
+  stolen_coordinates: number[];
 }
 
 export interface SearchCount {

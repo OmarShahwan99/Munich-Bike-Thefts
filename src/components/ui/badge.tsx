@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
-export const Badge = styled.span`
+interface BadgeProps {
+  color?: string;
+}
+
+export const Badge = styled.span<BadgeProps>`
   display: inline-block;
-  background-color: #007bff;
+  background-color: ${({ color }) => color || "#007bff"};
   color: #fff;
   font-weight: 600;
   font-size: 13px;
