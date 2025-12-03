@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDebounce } from "../hooks/use-debounce";
 import type { SearchParams } from "../types/bike";
 import { PER_PAGE } from "../lib/constants";
@@ -45,6 +45,10 @@ function Bikes() {
   const handleSearch = (v: string) => setQuery(v);
   const handleDateFrom = (v: string | undefined) => setDateFrom(v);
   const handleDateTo = (v: string | undefined) => setDateTo(v);
+
+  useEffect(() => {
+    if (page > 1) setPage(1);
+  }, [debouncedSearch, dateFrom, dateTo]);
 
   return (
     <Container className="spacing">

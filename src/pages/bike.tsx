@@ -109,8 +109,8 @@ const Bike = () => {
         </Space>
 
         <Map
-          lat={bike.stolen_coordinates[0]}
-          lng={bike.stolen_coordinates[1]}
+          lat={bike?.stolen_coordinates?.[0]}
+          lng={bike?.stolen_coordinates?.[1]}
         />
       </Space>
     </Container>
