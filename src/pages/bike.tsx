@@ -108,10 +108,12 @@ const Bike = () => {
           </Grid>
         </Space>
 
-        <Map
-          lat={bike?.stolen_coordinates?.[0]}
-          lng={bike?.stolen_coordinates?.[1]}
-        />
+        {bike.stolen_coordinates && (
+          <Map
+            lat={bike?.stolen_coordinates?.[0]}
+            lng={bike?.stolen_coordinates?.[1]}
+          />
+        )}
       </Space>
     </Container>
   );

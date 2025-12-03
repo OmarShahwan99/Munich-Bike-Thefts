@@ -9,55 +9,73 @@ import Filters from "../components/bike/filters";
 import { Badge } from "../components/ui/badge";
 import BikeList from "../components/bike/bike-list";
 import Pagination from "../components/ui/pagination";
+import { useSearchParams } from "react-router-dom";
 
 function Bikes() {
-  const [page, setPage] = useState(1);
-  const [query, setQuery] = useState("");
-  const [dateFrom, setDateFrom] = useState<string>();
-  const [dateTo, setDateTo] = useState<string>();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [page, setPage] = useState(() => Number(searchParams.get("page") || 1));
+
+  const [filters, setFilters] = useState({
+    query: searchParams.get("query") || "",
+    dateFrom: searchParams.get("dateFrom") || undefined,
+    dateTo: searchParams.get("dateTo") || undefined,
+  });
 
   // debounce search
-  const debouncedSearch = useDebounce(query);
+  const debouncedSearch = useDebounce(filters.query);
 
-  const params: SearchParams = {
+  const apiParams: SearchParams = {
     page,
     per_page: PER_PAGE,
     title: debouncedSearch,
-    occurred_before: dateTo,
-    occurred_after: dateFrom,
+    occurred_before: filters.dateTo,
+    occurred_after: filters.dateFrom,
   };
 
-  const { data: bikes, isLoading, error } = useSearchBikes(params);
+  const { data: bikes, isLoading, error } = useSearchBikes(apiParams);
 
   const countParams = {
+    ...apiParams,
     page: 1,
     per_page: 1,
-    title: debouncedSearch,
-    occurred_before: dateTo,
-    occurred_after: dateFrom,
   };
 
   const { data: bikesCount, isLoading: countsLoading } =
     useSearchBikesCount(countParams);
 
   const total = bikesCount?.stolen ?? 0;
+  const handleSearch = (v: string) => setFilters((f) => ({ ...f, query: v }));
 
-  const handleSearch = (v: string) => setQuery(v);
-  const handleDateFrom = (v: string | undefined) => setDateFrom(v);
-  const handleDateTo = (v: string | undefined) => setDateTo(v);
+  const handleDateFrom = (v: string | undefined) =>
+    setFilters((f) => ({ ...f, dateFrom: v }));
+
+  const handleDateTo = (v: string | undefined) =>
+    setFilters((f) => ({ ...f, dateTo: v }));
 
   useEffect(() => {
-    if (page > 1) setPage(1);
-  }, [debouncedSearch, dateFrom, dateTo]);
+    const params: any = {};
+
+    if (filters.query) params.query = filters.query;
+    if (filters.dateFrom) params.dateFrom = filters.dateFrom;
+    if (filters.dateTo) params.dateTo = filters.dateTo;
+
+    params.page = page.toString();
+
+    setSearchParams(params);
+  }, [filters, page]);
+
+  useEffect(() => {
+    if (debouncedSearch || filters.dateFrom || filters.dateTo) setPage(1);
+  }, [debouncedSearch, filters.dateFrom, filters.dateTo]);
 
   return (
     <Container className="spacing">
       <Space size={16}>
         <Filters
-          query={query}
+          query={filters.query}
           handleSearch={handleSearch}
-          dateFrom={dateFrom}
-          dateTo={dateTo}
+          dateFrom={filters.dateFrom}
+          dateTo={filters.dateTo}
           onDateFrom={handleDateFrom}
           onDateTo={handleDateTo}
         />
